@@ -4,18 +4,13 @@ from users.forms import RegistrationForm,AccountAuthenticationForm
 from users.models import Account
 # Create your views here.
 def home_view(request,*args,**kwargs):
-
-	
 	context = {}
 	#FOR PRINTING THE LOGGED IN USERS NAME IN THE NAVBAR
 	# print_username = False
 	# if request.user in Account.objects.all():
 	# 	print_username = True
 	# 	context['user']=request.user
-
-
-	# context['print_username'] = print_username
-	
+	# context['print_username'] = print_username	
 	#FOR REGISTRATION
 	if request.POST:
 		form = RegistrationForm(request.POST)
@@ -31,8 +26,6 @@ def home_view(request,*args,**kwargs):
 	else: #GET request
 		form = RegistrationForm()
 		context['registration_form'] = form
-
-
 
 	user = request.user
 	 # if user.is_authenticated:
@@ -61,3 +54,7 @@ def home_view(request,*args,**kwargs):
 def logout_view(request):
 	logout(request)
 	return redirect ('home')
+def blog_view(request):
+	return render(request,'recipes.html')
+
+
