@@ -41,6 +41,12 @@ class Account(AbstractBaseUser):
 	is_active				= models.BooleanField(default=True)
 	is_staff				= models.BooleanField(default=False)
 	is_superuser			= models.BooleanField(default=False)
+	#followers(manytomany)
+	#following(manytomany)
+	#dob
+	#bio(textfield)
+	#profilepic(img)
+	#coverpic(img)
 
 
 

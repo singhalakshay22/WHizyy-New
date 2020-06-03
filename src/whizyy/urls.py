@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blogs.views import home_view,logout_view
+from blogs.views import home_view,logout_view,blog_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view,name='home'),
-    path('logout/',logout_view,name='logout')
+    path('logout/',logout_view,name='logout'),
+    path('blogs/',blog_view,name='blogs'),
+    # url(r'^tinymce/', include('tinymce.urls')),
 
 ]
