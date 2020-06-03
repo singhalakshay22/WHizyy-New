@@ -18,8 +18,16 @@ def upload_location(instance, filename):
 	return file_path
 
 class BlogPost(models.Model):
+	choices_ac = (
+        ('FOOD', 'FOOD'),
+        ('TRAVEL' , 'TRAVEL'),
+        ('MUSIC','MUSIC'),
+        ('FASHION','FASHION'),
+        )
+
 	title					= models.CharField(max_length=200)
 	body					= HTMLField()
+	category				= models.CharField(choices=choices_ac, max_length=100)
 	image		 			= models.ImageField(upload_to=upload_location, null=True, blank=True)
 	date_published 			= models.DateTimeField(auto_now_add=True, verbose_name="date published")
 	date_updated 			= models.DateTimeField(auto_now=True, verbose_name="date updated")

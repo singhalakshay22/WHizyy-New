@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from users.forms import RegistrationForm,AccountAuthenticationForm
 from users.models import Account
+from .models import BlogPost
+from .forms import BlogForm
 # Create your views here.
 def home_view(request,*args,**kwargs):
 	context = {}
@@ -54,7 +56,24 @@ def home_view(request,*args,**kwargs):
 def logout_view(request):
 	logout(request)
 	return redirect ('home')
+
 def blog_view(request):
 	return render(request,'recipes.html')
+
+def write_blog(request):
+	if request.method=='POST':
+		form = BlogForm(request.POST, request.FILES)
+		if form.is_valid():
+			obj= form.save(commit=False)
+			obj.author=request.user				
+			obj.save()
+			return redirect('home')
+	else:
+		form=BlogForm()
+	return render(request,'writeblog.html',{'form':form})
+
+
+
+
 
 
