@@ -97,7 +97,7 @@
 							{% endif %}
 						</ul> -->
 						{% if request.user.is_authenticated %}
-							<li><a href="#"><div>{{request.user.username}}<i class="icon-angle-down1 d-none d-lg-inline-block"></i></div></a>
+							<li><a href="{% url 'userpage' request.user.username%}"><div>{{request.user.username}}<i class="icon-angle-down1 d-none d-lg-inline-block"></i></div></a>
 								<ul class="rounded-bottom">
 									<li><a href="{% url 'logout' %}"><div>Logout</div></a></li>
 								</ul>
