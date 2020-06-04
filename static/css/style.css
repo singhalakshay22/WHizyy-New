@@ -1158,7 +1158,7 @@ body.stretched #header.full-header .container {
 	display: block;
 	line-height: 22px;
 	padding: 39px 15px;
-	color: #444;
+	color: white;
 	font-weight: bold;
 	font-size: 13px;
 	letter-spacing: 1px;
@@ -1187,7 +1187,7 @@ body.stretched #header.full-header .container {
 }
 
 #primary-menu ul li:hover > a,
-#primary-menu ul li.current > a { color: #1ABC9C; }
+#primary-menu ul li.current > a { color: #D60D43; }
 
 #primary-menu > ul > li.sub-menu > a > div { }
 
@@ -1202,7 +1202,7 @@ body.no-superfish #primary-menu li:hover > .mega-menu-content { display: block; 
 	background-color: #FFF;
 	box-shadow: 0px 13px 42px 11px rgba(0, 0, 0, 0.05);
 	border: 1px solid #EEE;
-	border-top: 2px solid #1ABC9C;
+	border-top: 2px solid #D60D43;
 	height: auto;
 	z-index: 199;
 	top: 80%;
@@ -1644,7 +1644,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 	top: 25px;
 	left: auto;
 	right: 25px;
-	width: 48px;
+	width: 100px;
 	height: 48px;
 	line-height: 48px;
 	font-size: 24px;
@@ -2091,13 +2091,14 @@ body.top-search-open #top-account { opacity: 0; }
 
 #header-wrap {
 	position: relative;
+	top:-21%;
 	z-index: 199;
 	-webkit-backface-visibility: hidden;
 }
 
 #header.sticky-header #header-wrap {
 	position: fixed;
-	top: 0;
+	top: -4%;
 	left: 0;
 	width: 100%;
 	/*background-color: #FFF;*/
