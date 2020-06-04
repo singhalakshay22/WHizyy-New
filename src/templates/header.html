@@ -1,0 +1,92 @@
+{% block content%}
+<header id="header" class="transparent-header static-sticky clearfix">
+
+			<div id="header-wrap" >
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo" class="">
+						<a href="index.html" class="standard-logo"><img src="{% static 'demos/recipes/images/logo.png' %}" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo"><img src="demos/recipes/images/logo@2x.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu">
+
+						<ul>
+							
+							<li class="current"><a href="#"><div>Home</div></a></li>
+							<li><a href="demos/recipes/recipes.html"><div>Blogs <i class="icon-angle-down1 d-none d-lg-inline-block"></i></div></a>
+								<ul class="rounded-bottom">
+									<li><a href="demos/recipes/recipe-single.html"><div>Trending Blogs</div></a></li>
+									 <div class="dropdown-divider my-0"></div>
+									<li><a href="demos/recipes/recipes.html"><div>Sports</div></a></li>
+									<li><a href="demos/recipes/recipes.html"><div>Beauty</div></a></li>
+									<li><a href="demos/recipes/recipes.html"><div>Food</div></a></li>
+									<li><a href="demos/recipes/recipes.html"><div>Travel</div></a></li>
+								</ul>
+							</li>
+							<li><a href="demos/recipes/recipes.html"><div>Innovations <i class="icon-angle-down1 d-none d-lg-inline-block"></i></div></a>
+								<ul class="rounded-bottom">
+									<li><a href="demos/recipes/recipe-single.html"><div>Books</div></a></li>
+									 <div class="dropdown-divider my-0"></div>
+									<li><a href="demos/recipes/recipes.html"><div>Songs</div></a></li>
+									<li><a href="demos/recipes/recipes.html"><div>Quotes</div></a></li>
+									<li><a href="demos/recipes/recipes.html"><div>Poems</div></a></li>
+									<li><a href="demos/recipes/recipes.html"><div>Short Stories</div></a></li>
+								</ul>
+							</li>
+						<!-- 	{% if print_username %}
+								<li><a href="#"> {{user.username}} </a> </li>
+							{% elif not print_username %}
+								<li><a href="#" data-toggle="modal" data-target="#exampleModalCenter">Login</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#exampleModalCenter2">SignUp</a></li>
+							
+							{% endif %}
+						</ul> -->
+						{% if request.user.is_authenticated %}
+							<li><a href="{% url 'userpage' request.user.username%}"><div>{{request.user.username}}<i class="icon-angle-down1 d-none d-lg-inline-block"></i></div></a>
+								<ul class="rounded-bottom">
+									<li><a href="{% url 'logout' %}"><div>Logout</div></a></li>
+								</ul>
+							</li>
+							{% else %}
+								<li><a href="#" data-toggle="modal" data-target="#exampleModalCenter">Login</a></li>
+								<li><a href="#" data-toggle="modal" data-target="#exampleModalCenter2">SignUp</a></li>
+							
+							{% endif %}
+
+					
+
+
+
+
+						<!-- Top Search
+						============================================= -->
+						<!-- <div id="top-search">
+							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+							<form action="search.html" method="get">
+								<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+							</form>
+						</div> --><!-- #top-search end -->
+
+
+
+					</nav><!-- #primary-menu end -->
+					<!-- <button type="button" class=" btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter"
+     					style="margin-right:20px;color: white;border: 2.5px solid white;width: 300px;height: 75px;" >
+     					Add New Record
+     				</button> -->
+     				   
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+{% endblock %}

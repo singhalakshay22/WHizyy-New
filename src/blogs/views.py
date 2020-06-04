@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from users.forms import RegistrationForm,AccountAuthenticationForm
-from users.models import Account
+from django.contrib.auth.decorators import login_required
+from users.models import Account,UserFollowing
 # Create your views here.
 def home_view(request,*args,**kwargs):
 	context = {}
@@ -56,5 +57,57 @@ def logout_view(request):
 	return redirect ('home')
 def blog_view(request):
 	return render(request,'recipes.html')
+
+@login_required()
+def userpage_view(request,username):
+
+
+
+	user=Account.objects.get(username=username)
+
+	followers_count=user.followers.all().count()
+	
+	is_follower=False	
+
+	for element in user.followers.all():
+		if request.user==element.user_id:
+			is_follower=True
+
+
+	context={
+	'followers_count':followers_count,
+	'is_follower':is_follower,
+	'profile_user': user,
+	}	
+
+	return render(request,'userpage.html',context)
+
+@login_required()
+def follow_view(request,username):
+
+
+
+	user=Account.objects.get(username=username)
+	print(user)
+
+	UserFollowing.objects.create(user_id=request.user,
+                             following_user_id=user)
+	
+	return redirect('userpage', username=username)
+
+@login_required()
+def unfollow_view(request,username):
+
+
+
+	user=Account.objects.get(username=username)
+	
+
+	element=UserFollowing.objects.get(user_id=request.user,
+                             following_user_id=user)
+	element.delete()
+	
+	return redirect('userpage', username=username)
+
 
 
