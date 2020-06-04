@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blogs.views import home_view,logout_view,blog_view,userpage_view,follow_view,unfollow_view
+from blogs.views import home_view,logout_view,blog_view,userpage_view,follow_view,unfollow_view,write_blog
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -23,6 +23,7 @@ urlpatterns = [
     path('', home_view,name='home'),
     path('logout/',logout_view,name='logout'),
     path('blogs/',blog_view,name='blogs'),
+    path('writeblogs/',write_blog,name='writeblogs'),
     path('<slug:username>/userpage/',userpage_view,name='userpage'),
     path('follow/<slug:username>',follow_view,name='follow'),
     path('unfollow/<slug:username>',unfollow_view,name='unfollow'),
