@@ -1,4 +1,5 @@
-
+{% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +11,39 @@
     <meta name="author" content="Colorlib">
     <meta name="keywords" content="Colorlib Templates">
 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="SemiColonWeb" />
+
+    <!-- Stylesheets
+    ============================================= -->
+    <link href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:400,700" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/dark.css' %}" type="text/css" />
+
+    <link rel="stylesheet" href="{% static 'css/font-icons.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css" />
+
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SLIDER REVOLUTION 5.x CSS SETTINGS -->
+        <link rel="stylesheet" type="text/css" href="{% static 'include/rs-plugin/css/settings.css' %}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{% static 'include/rs-plugin/css/layers.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'include/rs-plugin/css/navigation.css' %}">
+
+    <!-- ADD-ONS CSS FILES -->
+    <link rel="stylesheet" type="text/css" href="{% static 'include/rs-plugin/css/addons/revolution.addon.liquideffect.css' %}">
+
+    <!--  Recipes Demo Specific Stylesheet -->
+    <!--    <link rel="stylesheet" href="{% static 'css/colors.php?color=267DF4' %}" type="text/css" />-->
+    <link rel="stylesheet" href="{% static 'demos/recipes/css/fonts.css' %}" type="text/css" /> <!-- Theme Font -->
+    <link rel="stylesheet" href="{% static 'demos/recipes/recipes.css' %}" type="text/css" /> <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <style>
+        .dt-shadow{text-shadow:0px 10px 30px rgba(0,0,0,1)}#rev_slider_131_1 .uranus.tparrows{width:50px; height:50px; background:rgba(255,255,255,0)}#rev_slider_131_1 .uranus.tparrows:before{width:50px; height:50px; line-height:50px; font-size:40px; transition:all 0.3s;-webkit-transition:all 0.3s}#rev_slider_131_1 .uranus.tparrows:hover:before{opacity:0.75}.slotholder canvas { height: 100% !important; }
+    </style>
+
     <!-- Title Page-->
     <title>Write your Blog</title>
 
@@ -20,75 +54,257 @@
 
     <!-- Main CSS-->
     <link href="../static/blogform/css/main.css" rel="stylesheet" media="all">
-</head>
 
-<body>
-    <div class="page-wrapper bg-dark p-t-100 p-b-50">
-        <div class="wrapper wrapper--w900">
-            <div class="card card-6">
-                <div class="card-heading">
-                    <h2 class="title">Write Blog</h2>
+</head>
+<body class="stretched">
+    <div id="wrapper" class="clearfix" style="background:url(../static/graph.png); padding-top: 0px;background-repeat: no-repeat;">
+        <header id="header" class="transparent-header static-sticky clearfix">
+            <div id="header-wrap" >
+                <div class="container clearfix">
+                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+                    <div id="logo" class="">
+                        <a href="index.html" class="standard-logo"><img src="{% static 'homelogo.png' %}" alt="Canvas Logo" style="padding-top: 20px;padding-bottom: 20px;"></a>
+                    </div> 
+
+
+<!-- 
+                    <div id="top-search">
+                            <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                            <form action="search.html" method="get">
+                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+                            </form>
+                    </div>  -->
+
+                    <nav id="primary-menu">
+                        <ul>                            
+                            <li class="current"><a href="#"><div><strong>Home</strong></div></a></li>
+                            <li><a href="demos/recipes/recipes.html"><div>Blogs <i class="icon-angle-down1 d-none d-lg-inline-block"></i></div></a>
+                                <ul class="rounded-bottom">
+                                    <li><a href="demos/recipes/recipe-single.html"><div>Trending Blogs</div></a></li>
+                                     <div class="dropdown-divider my-0"></div>
+                                    <li><a href="demos/recipes/recipes.html"><div>Sports</div></a></li>
+                                    <li><a href="demos/recipes/recipes.html"><div>Beauty</div></a></li>
+                                    <li><a href="demos/recipes/recipes.html"><div>Food</div></a></li>
+                                    <li><a href="demos/recipes/recipes.html"><div>Travel</div></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="demos/recipes/recipes.html"><div>Innovations <i class="icon-angle-down1 d-none d-lg-inline-block"></i></div></a>
+                                <ul class="rounded-bottom">
+                                    <li><a href="demos/recipes/recipe-single.html"><div>Books</div></a></li>
+                                     <div class="dropdown-divider my-0"></div>
+                                    <li><a href="demos/recipes/recipes.html"><div>Songs</div></a></li>
+                                    <li><a href="demos/recipes/recipes.html"><div>Quotes</div></a></li>
+                                    <li><a href="demos/recipes/recipes.html"><div>Poems</div></a></li>
+                                    <li><a href="demos/recipes/recipes.html"><div>Short Stories</div></a></li>
+                                </ul>
+                            </li>
+                        <!--    {% if print_username %}
+                                <li><a href="#"> {{user.username}} </a> </li>
+                            {% elif not print_username %}
+                                <li><a href="#" data-toggle="modal" data-target="#exampleModalCenter">Login</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#exampleModalCenter2">SignUp</a></li>
+                            
+                            {% endif %}
+                        </ul> -->
+                        {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'userpage' request.user.username%}"><div>{{request.user.username}}<i class="icon-angle-down1 d-none d-lg-inline-block"></i></div></a>
+                                <ul class="rounded-bottom">
+                                    <li><a href="{% url 'logout' %}"><div>Logout</div></a></li>
+                                </ul>
+                            </li>
+                            {% else %}
+                                <li><a href="#" data-toggle="modal" data-target="#exampleModalCenter">Login</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#exampleModalCenter2">SignUp</a></li>
+                            
+                            {% endif %}
+
+                    
+
+
+
+
+                        <!-- Top Search
+                        ============================================= -->
+                        <!-- <div id="top-search">
+                            <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                            <form action="search.html" method="get">
+                                <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+                            </form>
+                        </div> --><!-- #top-search end -->
+                    </nav>
                 </div>
-                <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data">
-                         {% csrf_token %}
-                         <!-- {% load crispy_forms_tags %}
-                    {{form|crispy}} -->
-                        <div class="form-row">
-                            <div class="name">Title</div>
-                            <div class="value">
-                                <!-- <input class="input--style-6" type="text" name="full_name"> -->
-                                {{form.title}}
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Category</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <!-- <input class="input--style-6" type="email" name="email" placeholder="example@email.com"> -->
-                                    {{form.category}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Body</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <!-- <textarea class="textarea--style-6" type="hidden" name="message" placeholder="Blog here"></textarea> -->
-                                    {{form.body}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Upload Image</div>
-                            <div class="value">
-                                <div class="input-group js-input-file">
-                                   <!--  <input class="input-file" type="hidden" name="file_cv" id="file"> -->
-                                   <!--  <label class="label--file" for="file">Choose file</label>
-                                    <span class="input-file__info">No file chosen</span> -->
-                                    {{form.image}}
-                                </div>
-                                <div class="label--desc">Upload any relevant file. Max file size 50 MB</div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn--radius-2 btn--blue-2" type="submit">Upload Blog</button>
-                        </div>
-                    </form>
-                </div>
-                
             </div>
-        </div>
+        </header>
+            <div class="page-wrapper p-t-100 p-b-50" >
+                <div class="page-wrapper p-t-100 p-b-50">
+                <div class="wrapper wrapper--w900">
+                    <div class="card card-6" style="border: none">
+                        <div class="card-heading">
+                            <h2 class="title">Create</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" enctype="multipart/form-data">
+                             {% csrf_token %}
+                             <!-- {% load crispy_forms_tags %}
+                                {{form|crispy}} -->
+                                <div class="form-row">
+                                    <div class="name">Title</div>
+                                    <div class="value">
+                                        <!-- <input class="input--style-6" type="text" name="full_name"> -->
+                                {{form.title}}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Category</div>
+                                    <div class="value">
+                                        <div class="input-group">
+                                            <!-- <input class="input--style-6" type="email" name="email" placeholder="example@email.com"> -->
+                                            {{form.category}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Body</div>
+                                    <div class="value">
+                                        <div class="input-group">
+                                            <!-- <textarea class="textarea--style-6" type="hidden" name="message" placeholder="Blog here"></textarea> -->
+                                            {{form.body}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Upload Image</div>
+                                    <div class="value">
+                                        <div class="input-group js-input-file">
+                                            <!--  <input class="input-file" type="hidden" name="file_cv" id="file"> -->
+                                            <!--  <label class="label--file" for="file">Choose file</label>
+                                            <span class="input-file__info">No file chosen</span> -->
+                                            {{form.image}}
+                                        </div>
+                                        <div class="label--desc">Upload any relevant file. Max file size 50 MB</div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn--radius-2 btn--blue-2" type="submit">Upload Blog</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            
     </div>
 
-    <!-- Jquery JS-->
-    <script src="../static/blogform/vendor/jquery/jquery.min.js"></script>
+        <script src="../static/blogform/vendor/jquery/jquery.min.js"></script>
+        <script src="../static/blogform/js/global.js"></script>
+        <script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/plugins.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/jquery.themepunch.tools.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/jquery.themepunch.revolution.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/pixi.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/addons/revolution.addon.liquideffect.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.actions.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.migration.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+        <script src="{% static 'include/rs-plugin/js/extensions/revolution.extension.video.min.js' %}"></script>
+        <script src="{% static 'js/functions.js' %}"></script>
+        <script>
+        var revapi2,
+        tpj;
+        (function() {
+            if (!/loaded|interactive|complete/.test(document.readyState)) document.addEventListener("DOMContentLoaded",onLoad); else onLoad();
 
+            function onLoad() {
+                if (tpj===undefined) { tpj = jQuery; if("off" == "on") tpj.noConflict();}
+                    if(tpj("#rev_slider_2_1").revolution == undefined){
+                        revslider_showDoubleJqueryError("#rev_slider_2_1");
+                    }else{
+                        revapi2 = tpj("#rev_slider_2_1").show().revolution({
+                            sliderType:"standard",
+                            jsFileLocation:"include/rs-plugin/js/",
+                            sliderLayout:"fullscreen",
+                            dottedOverlay:"none",
+                            delay:9000,
+                            parallax: {
+                                type:"scroll",
+                                origo:"slidercenter",
+                                speed:400,
+                              speedbg:0,
+                              speedls:0,
+                                levels:[5,10,15,20,25,30,35,40,45,46,47,48,49,50,51,55],
+                            },
+                            navigation: {
+                                keyboardNavigation:"off",
+                                keyboard_direction: "horizontal",
+                                mouseScrollNavigation:"off",
+                                 mouseScrollReverse:"default",
+                                onHoverStop:"off",
+                                arrows: {
+                                    style:"uranus",
+                                    enable:true,
+                                    hide_onmobile:false,
+                                    hide_onleave:false,
+                                    tmp:'',
+                                    left: {
+                                        h_align:"right",
+                                        v_align:"bottom",
+                                        h_offset:80,
+                                        v_offset:30
+                                    },
+                                    right: {
+                                        h_align:"right",
+                                        v_align:"bottom",
+                                        h_offset:20,
+                                        v_offset:30
+                                    }
+                                }
+                            },
+                            responsiveLevels:[1240,1024,778,480],
+                            visibilityLevels:[1240,1024,778,480],
+                            gridwidth:[1240,1024,778,480],
+                            gridheight:[868,768,960,720],
+                            lazyType:"all",
+                            shadow:0,
+                            spinner:"off",
+                            stopLoop:"off",
+                            stopAfterLoops:-1,
+                            stopAtSlide:-1,
+                            shuffle:"off",
+                            autoHeight:"off",
+                            fullScreenAutoWidth:"off",
+                            fullScreenAlignForce:"off",
+                            fullScreenOffsetContainer: "70",
+                            fullScreenOffset: "",
+                            disableProgressBar:"off",
+                            hideThumbsOnMobile:"off",
+                            hideSliderAtLimit:0,
+                            hideCaptionAtLimit:0,
+                            hideAllCaptionAtLilmit:0,
+                            debugMode:false,
+                            fallbacks: {
+                                simplifyAll:"off",
+                                nextSlideOnWindowFocus:"off",
+                                disableFocusListener:false,
+                            }
+                        });
+                    }; /* END OF revapi call */
 
-    <!-- Main JS-->
-    <script src="../static/blogform/js/global.js"></script>
+                    RsLiquideffectAddOn(tpj, revapi2);
 
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+                    if(typeof ExplodingLayersAddOn !== "undefined") ExplodingLayersAddOn(tpj, revapi2);
+                }; /* END OF ON LOAD FUNCTION */
+            }()); /* END OF WRAPPING FUNCTION */
+        </script>
+</body>
+
+    
+
 
 </html>
 <!-- end document-->
