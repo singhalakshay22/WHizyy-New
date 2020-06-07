@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -8,25 +9,34 @@
 	<!-- Stylesheets
 	============================================= -->
 	<link href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:400,700" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="../../css/bootstrap.css" type="text/css" />
-	<link rel="stylesheet" href="../../style.css" type="text/css" />
-	<link rel="stylesheet" href="../../css/dark.css" type="text/css" />
-
-	<link rel="stylesheet" href="../../css/font-icons.css" type="text/css" />
-	<link rel="stylesheet" href="../../css/animate.css" type="text/css" />
-	<link rel="stylesheet" href="../../css/magnific-popup.css" type="text/css" />
-
-	<link rel="stylesheet" href="../../css/responsive.css" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/dark.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/font-icons.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<!--  Recipes Demo Specific Stylesheet -->
-	<link rel="stylesheet" href="../../css/colors.php?color=267DF4" type="text/css" /> <!-- Theme Color -->
-	<link rel="stylesheet" href="css/fonts.css" type="text/css" /> <!-- Theme Font -->
-	<link rel="stylesheet" href="recipes.css" type="text/css" /> <!-- Theme Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'demos/recipes/css/fonts.css' %}" type="text/css" /> <!-- Theme Font -->
+	<link rel="stylesheet" href="{% static 'demos/recipes/recipes.css' %}" type="text/css" /> 
+		<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+<!-- Theme Custom CSS -->
 		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> -->
-	<!-- Document Title"> 
-	============================================= -->
-	<title>BLOG</title>
+
+	<title>{{single_blog.title}}</title>
+
+	<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+    color: #444;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0px 0 -3px 0;
+    font-family: 'Raleway', sans-serif;
+}
+	</style>
+	
 
 </head>
 
@@ -96,7 +106,7 @@
 
 			<div class="container clearfix">
 				<div class="divcenter center" style="max-width: 800px">
-					<h3 class="nott t700 mb-5 display-4" data-animate="zoomIn">Title Of the Blog</h3>
+					<h3 class="nott t700 mb-5 display-4" data-animate="zoomIn">{{single_blog.title}}</h3>
 					<div class="slider-features" data-animate="zoomIn" data-delay="300" >
 						<ul class="list-unstyled row">
 							<li class="col tleft my-3 my-md-0">
@@ -132,17 +142,20 @@
 			<div class="content-wrap pt-0">
 
 				<div class="container">
-					<div class="card noborder shadow-sm" style="top: -100px;">
+					<div class="card noborder shadow-sm" style="top: -311px; position: relative;">
 						<div class="card-body px-4">
-							<div class="row align-items-center clearfix">
-								<div class="col-4 col-md pr-3 py-2">
-									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">LIKE</h6>
-									<a href="#"><img src="images/icons/like.svg" width="30"></a>
-								</div>
+							<div class="row align-items-center clearfix" style="height: 57px">
+								
 
 								<div class="col-4 col-md px-3 py-2">
-									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">DISLIKE</h6>
-									<h4 class="mb-0">700</h4>
+									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">AUTHOR</h6>
+									<h4 class="mb-0">{{single_blog.author.username}}</h4>
+								</div>
+
+								<div class="col-4 col-md pr-3 ">
+									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">LIKE</h6>
+									<a href="#"><i class="fa-thumbs-o-up" ></i></a>
+
 								</div>
 
 								<div class="col-4 col-md px-3 py-2">
@@ -193,72 +206,17 @@
 
 							<div class="line my-4"></div>
 
-							<div class="row justify-content-between mt-5 mb-4 clearfix">
-								<div class="col-lg-4">
-									<div class="d-flex justify-content-between align-items-center mb-4">
-										<h4 class="mb-0">Ingredients</h4>
-										<a href="javascript:window.print()" id="print-button" class="social-icon si-small si-colored si-print" title="Print">
-											<i class="icon-line-printer"></i>
-											<i class="icon-line-printer"></i>
-										</a>
+							<div class="row " style="text-align: center;">
+								<div class="col-md-2"></div>
+								<div class="col-md-8 ">
+									
+									<div>{{single_blog.body|safe}}</div>
+									{% if single_blog.image.url %}
+									<img src="{{ single_blog.image.url }}" style="margin-bottom: 20px; max-height: 500px;max-width: 750px">
+									{% endif %}
+									<div id="data-container">
+										
 									</div>
-									<ul class="list-unstyled list-ingredients bg-light p-4">
-										<li>2 lb  frozen tater tot (910 g)</li>
-										<li>4 boneless, skinless chicken thighs</li>
-										<li>1 tablespoon  whole grain mustard</li>
-										<li>2 tablespoons  olive oil</li>
-										<li>salt, to taste</li>
-										<li>pepper, to taste</li>
-										<li>½ red onion, sliced</li>
-										<li>1 cup  cheddar cheese (100 g)</li>
-										<li>1 cup  monterey jack cheese (100 g)</li>
-									</ul>
-									<div class="line line-sm"></div>
-									<h4>Share:</h4>
-									<a href="#" class="social-icon si-small si-colored si-facebook" title="Facebook">
-										<i class="icon-facebook"></i>
-										<i class="icon-facebook"></i>
-									</a>
-									<a href="#" class="social-icon si-small si-colored si-twitter" title="Twitter">
-										<i class="icon-twitter"></i>
-										<i class="icon-twitter"></i>
-									</a>
-									<a href="#" class="social-icon si-small si-colored si-pinterest" title="Pinterest">
-										<i class="icon-pinterest"></i>
-										<i class="icon-pinterest"></i>
-									</a>
-									<a href="#" class="social-icon si-small si-colored si-instagram" title="Instagram">
-										<i class="icon-instagram"></i>
-										<i class="icon-instagram"></i>
-									</a>
-									<a href="#" class="social-icon si-small si-colored si-email3" title="Email">
-										<i class="icon-email3"></i>
-										<i class="icon-email3"></i>
-									</a>
-								</div>
-								<div class="col-lg-8 mt-5 mt-lg-0">
-									<h4>Video</h4>
-									<div class="rounded position-relative dark mb-5" style="background: url('images/recipe-week.jpg') no-repeat center center / cover; min-height: 300px">
-										<a href="https://www.youtube.com/watch?v=P3Huse9K6Xs" data-lightbox="iframe" class="play-video stretched-link">
-											<i class="icon-play"></i>
-										</a>
-									</div>
-									<h4>Preparation</h4>
-									<ol class="list-unstyled list-preparation">
-										<li>Place frozen tater tots on a baking sheet and bake at 450˚F (230˚C) for 20 minutes, or until crispy. Set aside.</li>
-										<li>In a large bowl, toss chicken thighs with 1 tablespoon whole grain mustard, salt, pepper, and 1 tablespoon olive oil.</li>
-										<li>In a cast iron skillet, cook on high heat until there is a nice brown sear on the surface of the chicken, and the inside is no longer pink.</li>
-										<li>Roughly four minutes each side. Set chicken aside.</li>
-										<li>Cook onions until caramelized. Set onions aside.</li>
-										<li>Cut the chicken into bite-size cubes.</li>
-										<li>Wipe the skillet of excess fat.</li>
-										<li>Layer with cooked tater tots. Top with chicken.</li>
-										<li>In a small bowl, combine all ingredients for honey mustard dressing.</li>
-										<li>Pour the dressing on the chicken and tots. Top with onion, then cheddar and monterey jack cheese.</li>
-										<li>Broil from 5-10 minutes, or until cheese is melted.</li>
-										<li>Load the dish with tomatoes, avocados, sour cream, and scallions. Serve immediately.</li>
-										<li>Enjoy!</li>
-									</ol>
 
 									<div class="line my-5"></div>
 
@@ -266,12 +224,12 @@
 									============================================= -->
 									<div class="post-navigation row clearfix">
 
-										<div class="col-6">
-											<a href="#" class="font-primary h6"><i class="icon-caret-left"></i> Garden Veggie Delux Pizza</a>
+										<div class="col-6 tleft">
+											<a href="#" class="font-primary h6"><i class="icon-caret-left"></i>Previous Post</a>
 										</div>
 
 										<div class="col-6 tright">
-											<a href="#" class="font-primary h6">Quick Black Pepper Pork Lunch <i class="icon-caret-right"></i></a>
+											<a href="#" class="font-primary h6" >Next Post<i class="icon-caret-right"></i></a>
 										</div>
 
 									</div><!-- .post-navigation end -->
@@ -517,132 +475,26 @@
 
 		<!-- Footer
 		============================================= -->
-		<footer id="footer" class="bg-white noborder">
 
-			<div class="container">
-
-				<!-- Footer Widgets
-				============================================= -->
-				<div class="footer-widgets-wrap clearfix">
-
-					<div class="row">
-
-						<div class="col-lg-2 col-md-2 col-6 pr-4">
-							<div class="widget clearfix">
-
-								<h4 class="ls0 nott">Download App</h4>
-								<a href="#"><img src="../../demos/articles/images/appstore.png" alt="App Link"></a>
-								<a href="#"><img src="../../demos/articles/images/googleplay.png" alt="App Link" class="mt-2"></a>
-
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-2 col-6">
-							<div class="widget clearfix">
-
-								<h4 class="ls0 nott">Support</h4>
-
-								<ul class="list-unstyled ml-0">
-									<li class="mb-2"><a href="#" class="text-black-50">Home</a></li>
-									<li class="mb-2"><a href="#" class="text-black-50">About</a></li>
-									<li class="mb-2"><a href="#" class="text-black-50">FAQs</a></li>
-									<li class="mb-2"><a href="#" class="text-black-50">Support</a></li>
-								</ul>
-
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-2 col-6 mt-4 mt-md-0">
-							<div class="widget clearfix">
-
-								<h4 class="ls0 nott">Trending</h4>
-
-								<ul class="list-unstyled ml-0">
-									<li class="mb-2"><a href="#" class="text-black-50">Shop</a></li>
-									<li class="mb-2"><a href="#" class="text-black-50">Portfolio</a></li>
-									<li class="mb-2"><a href="#" class="text-black-50">Blog</a></li>
-								</ul>
-
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-2 col-6 mt-4 mt-md-0">
-							<div class="widget clearfix">
-
-								<h4 class="ls0 nott">Features</h4>
-
-								<ul class="list-unstyled ml-0">
-									<li class="mb-2"><a href="#" class="text-black-50">Help Center</a></li>
-									<li class="mb-2"><a href="#" class="text-black-50">Paid with Moblie</a></li>
-									<li class="mb-2"><a href="#" class="text-black-50">Status</a></li>
-									<li class="mb-2"><a href="#" class="text-black-50">Contact Support</a></li>
-								</ul>
-
-							</div>
-						</div>
-
-						<div class="col-lg-4 col-md-4">
-							<div id="instagram" class="widget clearfix">
-
-								<h4 class="ls0 nott">Instagram Photos</h4>
-								<div id="instagram-photos" class="instagram-photos masonry-thumbs grid-4" data-user="5834720953" data-count="8" data-type="user"></div>
-
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-
-			<!-- Copyrights
-			============================================= -->
-			<div id="copyrights" class="bg-light">
-
-				<div class="container">
-					<div class="row justify-content-between align-items-center">
-						<div class="col-sm-4 d-flex justify-content-sm-start mb-3 mb-sm-0 text-black-50">
-							Copyrights &copy; 2014 All Rights Reserved by Canvas Inc.
-						</div>
-						<div class="col-sm-4 d-flex justify-content-sm-center mb-3 mb-sm-0">
-							<a href="http://facebook.com/semicolonweb" target="_blank" class="social-icon si-small si-colored si-facebook" title="Facebook">
-								<i class="icon-facebook"></i>
-								<i class="icon-facebook"></i>
-							</a>
-							<a href="http://twitter.com/__semicolon" target="_blank" class="social-icon si-small si-colored si-twitter" title="Twitter">
-								<i class="icon-twitter"></i>
-								<i class="icon-twitter"></i>
-							</a>
-							<a href="https://www.youtube.com/semicolonweb" target="_blank" class="social-icon si-small si-colored si-youtube" title="youtube">
-								<i class="icon-youtube"></i>
-								<i class="icon-youtube"></i>
-							</a>
-							<a href="https://www.instagram.com/semicolonweb" target="_blank" class="social-icon si-small si-colored si-instagram" title="instagram">
-								<i class="icon-instagram"></i>
-								<i class="icon-instagram"></i>
-							</a>
-						</div>
-						<div class="col-sm-4 d-flex justify-content-sm-end">
-							<div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
-						</div>
-					</div>
-				</div>
-
-			</div><!-- #copyrights end -->
-
-		</footer><!-- #footer end -->
-
-	</div><!-- #wrapper end -->
 
 	<!-- Go To Top
+
 	============================================= -->
 	<div id="gotoTop" class="icon-angle-up"></div>
 
+
 	<!-- External JavaScripts
 	============================================= -->
-	<script src="../../js/jquery.js"></script>
-	<script src="../../js/plugins.js"></script>
+
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/plugins.js' %}"></script>
 
 	<!-- Footer Scripts
 	============================================= -->
-	<script src="../../js/functions.js"></script>
+	<script src="{% static 'js/functions.js' %}"></script>
+
+	
+	
 
 </body>
 </html>

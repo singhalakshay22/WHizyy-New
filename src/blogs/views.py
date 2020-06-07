@@ -123,5 +123,11 @@ def unfollow_view(request,username):
 	
 	return redirect('userpage', username=username)
 
+def single_blog_view(request,blogslug):
+	single_blog=BlogPost.objects.get(slug=blogslug)
+	context={
+	'single_blog': single_blog,
+	}
+	return render(request,'single-blog.html', context)
 
 

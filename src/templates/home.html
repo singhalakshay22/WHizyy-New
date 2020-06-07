@@ -51,20 +51,21 @@
 						<a href="index.html" class="standard-logo"><img src="{% static 'homelogo.png' %}" alt="Canvas Logo" style="padding-top: 20px;padding-bottom: 20px;"></a>
 					</div> 
 
-					
+					<form class="primary-menu-trigger" action="/action_page.php" style="margin-bottom: -62px">
+    						<div class="input-group" style="width:40%;margin-left:-30px">
+      							<input type="text" class="form-control" placeholder="Search" name="search" style="margin-top:38px;">
+      							<div class="input-group-btn">
+        							<button class="btn btn-default" style="background:white;margin-top:38px"type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      							</div>
+    						</div>
+  						</form>
 						
 					 
 
 					<nav id="primary-menu">
 						<ul>	
-						<li><form action="/action_page.php">
-    						<div class="input-group" style="width:110%;margin-left:-30px">
-      							<input type="text" class="form-control" placeholder="Search" name="search" style="margin-top:38px">
-      							<div class="input-group-btn">
-        							<button class="btn btn-default" style="background:white;margin-top:38px"type="submit"><i class="glyphicon glyphicon-search"></i></button>
-      							</div>
-    						</div>
-  						</form>	</li>
+						<li>
+							</li>
   						<li>  <p> ghjhghjhghjjjjhj</p> </li>
 
 							<li class="current"><a href="#"><div><strong>Home</strong></div></a></li>
@@ -400,7 +401,7 @@
 				</div>
 			</div>
 		</section> -->
-		<section id="page-title" class="page-title-parallax page-title-dark" style="background: #111 url('../static/hom123.png') center center / cover; padding: 100px 0;" data-0="background-position:0px 20px;" data-400="background-position:0px -100px;">
+		<section id="page-title" class="page-title-parallax page-title-dark" style="background: #111 url('{% static 'hom123.png'%}') center center / cover; padding: 100px 0;" data-0="background-position:0px 20px;" data-400="background-position:0px -100px;">
 			<div class="container clearfix">
 				<div class="row">
 					<div class="col-md-7">
