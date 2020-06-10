@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from blogs.views import home_view,logout_view,blog_view,userpage_view,follow_view,unfollow_view,write_blog
-from blogs.views import single_blog_view
+from blogs.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -29,6 +29,10 @@ urlpatterns = [
     path('<slug:username>/userpage/',userpage_view,name='userpage'),
     path('follow/<slug:username>',follow_view,name='follow'),
     path('unfollow/<slug:username>',unfollow_view,name='unfollow'),
+    path('like/<slug:blogslug>',like_blog,name='like'),
+    path('unlike/<slug:blogslug>',unlike_blog,name='unlike'),
+
+    # path('blogs/create_comment/',create_comment_view,name='create_comment'),
     # url(r'^tinymce/', include('tinymce.urls')),
 
 ]

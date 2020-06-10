@@ -2,6 +2,7 @@ from django import forms
 from tinymce.models import HTMLField
 
 from .models import BlogPost
+from .models import Comment
 
 class BlogForm(forms.ModelForm):
 	choices_ac = (
@@ -29,3 +30,10 @@ class BlogForm(forms.ModelForm):
 	class Meta:
 		model = BlogPost
 		fields = ['title','category','body','image']
+
+
+class CommentForm(forms.ModelForm):
+	body=forms.CharField(required=True,label='',widget=forms.TextInput(attrs={'class': 'form-control form-control-pill'}))
+	class Meta:
+		model = Comment
+		fields = ['body']

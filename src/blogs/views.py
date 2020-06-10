@@ -1,11 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from users.forms import RegistrationForm,AccountAuthenticationForm
 from .models import BlogPost
-from .forms import BlogForm
+from .forms import BlogForm,CommentForm
 from django.contrib.auth.decorators import login_required
 from users.models import Account,UserFollowing
+from .models import Comment
+import simplejson as json
+from django.template.loader import render_to_string
+from django.http import JsonResponse
+from django.forms.models import model_to_dict
 # Create your views here.
+
 def home_view(request,*args,**kwargs):
 	context = {}
 	#FOR PRINTING THE LOGGED IN USERS NAME IN THE NAVBAR
@@ -125,9 +131,49 @@ def unfollow_view(request,username):
 
 def single_blog_view(request,blogslug):
 	single_blog=BlogPost.objects.get(slug=blogslug)
+	comment_list=Comment.objects.filter(post=single_blog).order_by("-created_on")
+	comment_count=Comment.objects.filter(post=single_blog).count()
+	like_count=single_blog.liked_by.count()
+
+	liked_by_me=False
+	if request.user in single_blog.liked_by.all():
+		liked_by_me=True
+	if request.method=='POST':
+		form = CommentForm(request.POST)
+		if form.is_valid():
+			obj= form.save(commit=False)
+			obj.user=request.user	
+			obj.post=single_blog			
+			obj.save()
+			# return redirect('single_blog', blogslug=blogslug)
+			return JsonResponse({'comment':model_to_dict(obj)},status=200)
+	else:
+		form=CommentForm()
+	
+	
+
 	context={
 	'single_blog': single_blog,
+	'comment_list': comment_list,
+	'comment_form':form,
+	'comment_count':comment_count,
+	'like_count':like_count,
+	'liked_by_me':liked_by_me,
+
 	}
+	
 	return render(request,'single-blog.html', context)
+
+def like_blog(request,blogslug):
+	single_blog=BlogPost.objects.get(slug=blogslug)
+	single_blog.liked_by.add(request.user)
+	return redirect('single_blog', blogslug=blogslug)
+
+def unlike_blog(request,blogslug):
+	single_blog=BlogPost.objects.get(slug=blogslug)
+	single_blog.liked_by.remove(request.user)
+	return redirect('single_blog', blogslug=blogslug)
+
+
 
 

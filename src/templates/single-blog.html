@@ -22,6 +22,8 @@
 <link rel="stylesheet" href="{% static 'demos/recipes/css/fonts.css' %}" type="text/css" /> <!-- Theme Font -->
 	<link rel="stylesheet" href="{% static 'demos/recipes/recipes.css' %}" type="text/css" /> 
 		<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <!-- Theme Custom CSS -->
 		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> -->
 
@@ -59,8 +61,8 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo">
-						<a href="../../demo-recipes.html" class="standard-logo"><img src="images/logo.png" alt="Canvas Logo"></a>
-						<a href="../../demo-recipes.html" class="retina-logo"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+						<a href="../../demo-recipes.html" class="standard-logo"><img src="" alt="Canvas Logo"></a>
+						<a href="../../demo-recipes.html" class="retina-logo"><img src="" alt="Canvas Logo"></a>
 					</div><!-- #logo end -->
 
 					<!-- Primary Navigation
@@ -110,22 +112,22 @@
 					<div class="slider-features" data-animate="zoomIn" data-delay="300" >
 						<ul class="list-unstyled row">
 							<li class="col tleft my-3 my-md-0">
-								<img src="images/icons/level.svg" alt="kcal" width="30">
+								<img src="" alt="kcal" width="30">
 								<h5 class="mb-0">Genre</h5>
 							</li>
 
 							<li class="col tleft my-3 my-md-0">
-								<img src="images/icons/timer.svg" alt="Timer" width="30">
+								<img src="" alt="Timer" width="30">
 								<h5 class="mb-0">Likes</h5>
 							</li>
 
 							<li class="col tleft my-3 my-md-0">
-								<img src="images/icons/ingredients.svg" alt="ingredients" width="30">
+								<img src="" alt="ingredients" width="30">
 								<h5 class="mb-0">Dislikes</h5>
 							</li>
 
 							<li class="col tleft my-3 my-md-0">
-								<img src="images/icons/star.svg" alt="kcal" width="30">
+								<img src="" alt="kcal" width="30">
 								<h5 class="mb-0">Comments</h5>
 							</li>
 						</ul>
@@ -153,20 +155,31 @@
 								</div>
 
 								<div class="col-4 col-md pr-3 ">
-									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">LIKE</h6>
-									<a href="#"><i class="fa-thumbs-o-up" ></i></a>
+									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">LIKES</h6>
+									<h4 class="mb-0">{{like_count}}</h4>
+									
 
 								</div>
 
 								<div class="col-4 col-md px-3 py-2">
-									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">RATE</h6>
-									<h4 class="mb-0">12gm</h4>
+									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">COMMENTS</h6>
+									<h4 class="mb-0">{{comment_count}}</h4>
 								</div>
-
+								{% if request.user.is_authenticated%}
 								<div class="col-4 col-md px-3 py-2">
-									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">COMMENT</h6>
-									<h4 class="mb-0">7gm</h4>
+									
+									<h4>Like:</h4>
+									{% if liked_by_me%}
+
+									<a href="{% url 'unlike' single_blog.slug %}"><img height="30px" src="{% static 'like-button-pink.svg' %}"></img></a>
+									{% else %}
+									<a href="{% url 'like' single_blog.slug %}"><img height="30px" src="{% static 'like-button.svg' %}"></img></a>
+									{% endif %}
+
 								</div>
+								{% endif %}
+
+								
 
 								<!-- <div class="col-4 col-md px-3 py-2">
 									<h6 class="text-black-50 uppercase font-body t400 ls1 mb-1">Carbs</h6>
@@ -236,13 +249,84 @@
 
 									<!-- Comments
 									============================================= -->
-									<div id="comments" class="clearfix">
+									<div  class="clearfix">
 
-										<h4 id="comments-title">Reviews</h4>
+
+										
+
+										{% if request.user.is_authenticated %}
+										<div id="respond" class="clearfix">
+
+											<h4>Leave a <span>Comment</span></h4>
+											<br>
+											<br>
+											
+
+											<form class="clearfix"  method="post" id="commentform" data-url="{% url 'single_blog' single_blog.slug%}">
+												{% csrf_token %}
+
+												<!-- <div class="col_one_third">
+													<label class="nott ls0 t400" for="author">Name</label>
+													<input type="text" name="author" id="author" value="" size="22" tabindex="1" class="form-control form-control-pill" />
+												</div>
+
+												<div class="col_one_third">
+													<label class="nott ls0 t400" for="email">Email</label>
+													<input type="text" name="email" id="email" value="" size="22" tabindex="2" class="form-control form-control-pill" />
+												</div>
+
+												<div class="col_one_third col_last">
+													<label class="nott ls0 t400" for="rating">Rating</label>
+													<div class="select-wrapper form-control-pill px-2">
+														<select id="rating" name="rating" class="form-control border-0">
+															<option value="" disabled selected>-- Select One --</option>
+															<option value="1 Star">1 Star</option>
+															<option value="2 Star">2 Star</option>
+															<option value="3 Star">3 Star</option>
+															<option value="4 Star">4 Star</option>
+															<option value="5 Star">5 Star</option>
+														</select>
+													</div>
+												</div> -->
+
+												<div class="clear"></div>
+
+												<div class="col_full">
+													<!-- <label class="nott ls0 t400" for="comment">Comment</label> -->
+													<!-- <textarea name="comment" cols="58" rows="7" tabindex="4" class="form-control form-control-pill"></textarea> -->
+													{{comment_form}}
+												</div>
+
+												<div class="col_full nobottommargin">
+													<button  type="button" id="comment-submit-button" tabindex="5"  class="button button-circle button-large mt-3" >Comment</button>
+												</div>
+
+											</form>
+
+										</div><!-- #respond end -->
+										{%else%}
+
+												<div id="respond" class="clearfix">
+
+											<h4>Please <span>Login</span> to Comment</h4>
+											<br>
+											<br>
+										</div>
+
+
+										{% endif %}
+										<br>
+										<hr>
+										<br>
+										<h4 id="comments-title">COMMENTS</h4>
+										<br>
 
 										<!-- Comments List
 										============================================= -->
-										<ol class="commentlist clearfix">
+										<ol class="commentlist clearfix" >
+											<div id="comment-div">
+											</div>
+											{% for comment in comment_list %}
 
 											<li class="comment even thread-even depth-1" id="li-comment-1">
 
@@ -253,7 +337,7 @@
 														<div class="comment-author vcard">
 
 															<span class="comment-avatar clearfix">
-															<img alt='' src='../articles/images/authors/2.jpg' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+															<img alt='' src='' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
 
 														</div>
 
@@ -261,21 +345,31 @@
 
 													<div class="comment-content clearfix">
 
-														<div class="comment-author">Gunther David<span><a href="#" title="Permalink to this comment">April 24, 2012 at 10:46 am</a></span>
-															<small class="comment-ratings text-muted mt-2"><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i> </small></div>
 
-														<p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+														
+															
+															
 
-														<a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+														<div class="comment-author">{{comment.user.username}}<span><a href="#" title="Permalink to this comment">{{comment.created_on}}</a></span>
+															</div>
+
+														<p>{{comment.body}}</p>
+
+														<a class='comment-reply-link' href='#'><!-- <i class="icon-reply"></i> --></a>
 
 													</div>
+													<br>
 
-													<div class="clear"></div>
+													
+													
 
 												</div>
+												</li>
+												{% endfor %}
+											
+											</ol>
 
-
-												<ul class='children'>
+												<!-- <ul class='children'>
 
 													<li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
 
@@ -309,10 +403,10 @@
 													</li>
 
 												</ul>
+ -->
+											
 
-											</li>
-
-											<li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
+											<!-- <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
 
 												<div id="comment-2" class="comment-wrap clearfix">
 
@@ -343,57 +437,13 @@
 
 											</li>
 
-										</ol><!-- .commentlist end -->
+										
 
 										<div class="clear"></div>
-
+ -->
 										<!-- Comment Form
 										============================================= -->
-										<div id="respond" class="clearfix">
-
-											<h4>Leave a <span>Review</span></h4>
-
-											<form class="clearfix" action="#" method="post" id="commentform">
-
-												<div class="col_one_third">
-													<label class="nott ls0 t400" for="author">Name</label>
-													<input type="text" name="author" id="author" value="" size="22" tabindex="1" class="form-control form-control-pill" />
-												</div>
-
-												<div class="col_one_third">
-													<label class="nott ls0 t400" for="email">Email</label>
-													<input type="text" name="email" id="email" value="" size="22" tabindex="2" class="form-control form-control-pill" />
-												</div>
-
-												<div class="col_one_third col_last">
-													<label class="nott ls0 t400" for="rating">Rating</label>
-													<div class="select-wrapper form-control-pill px-2">
-														<select id="rating" name="rating" class="form-control border-0">
-															<option value="" disabled selected>-- Select One --</option>
-															<option value="1 Star">1 Star</option>
-															<option value="2 Star">2 Star</option>
-															<option value="3 Star">3 Star</option>
-															<option value="4 Star">4 Star</option>
-															<option value="5 Star">5 Star</option>
-														</select>
-													</div>
-												</div>
-
-												<div class="clear"></div>
-
-												<div class="col_full">
-													<label class="nott ls0 t400" for="comment">Comment</label>
-													<textarea name="comment" cols="58" rows="7" tabindex="4" class="form-control form-control-pill"></textarea>
-												</div>
-
-												<div class="col_full nobottommargin">
-													<button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-circle button-large mt-3">Submit a Review</button>
-												</div>
-
-											</form>
-
-										</div><!-- #respond end -->
-
+										
 									</div><!-- #comments end -->
 								</div>
 							</div>
@@ -409,7 +459,7 @@
 							<div class="col-md-3 col-sm-6 bg-white" style="border-left: 1px solid #EEE">
 								<div class="card">
 									<div class="card-body">
-									<img src="images/popular/7.png" alt="image">
+									<img src="" alt="image">
 										<div class="d-flex justify-content-between align-items-center mt-4 mb-2">
 											<p class="card-author">By <a href="#">Bailey Wonger</a></p>
 											<span class="badge badge-primary bgcolor"><i class="icon-star3"></i> 4.5</span>
@@ -424,7 +474,7 @@
 							<div class="col-md-3 col-sm-6 bg-white">
 								<div class="card">
 									<div class="card-body">
-									<img src="images/popular/8.png" alt="image">
+									<img src="" alt="image">
 										<div class="d-flex justify-content-between align-items-center mt-4 mb-2">
 											<p class="card-author">By <a href="#">Pelican Steve</a></p>
 											<span class="badge badge-primary bgcolor"><i class="icon-star3"></i> 4.2</span>
@@ -439,7 +489,7 @@
 							<div class="col-md-3 col-sm-6 bg-white">
 								<div class="card">
 									<div class="card-body">
-									<img src="images/popular/5.png" alt="image">
+									<img src="" alt="image">
 										<div class="d-flex justify-content-between align-items-center mt-4 mb-2">
 											<p class="card-author">By <a href="#">Norman Gordon</a></p>
 											<span class="badge badge-primary bgcolor"><i class="icon-star3"></i> 4.5</span>
@@ -454,7 +504,7 @@
 							<div class="col-md-3 col-sm-6 bg-white">
 								<div class="card">
 									<div class="card-body">
-									<img src="images/popular/6.png" alt="image">
+									<img src="" alt="image">
 										<div class="d-flex justify-content-between align-items-center mt-4 mb-2">
 											<p class="card-author">By <a href="#">Druid Wensleydale</a></p>
 											<span class="badge badge-primary bgcolor"><i class="icon-star3"></i> 4.0</span>
@@ -473,9 +523,11 @@
 
 		</section><!-- #content end -->
 
-		<!-- Footer
-		============================================= -->
 
+
+
+
+	
 
 	<!-- Go To Top
 
@@ -485,7 +537,7 @@
 
 	<!-- External JavaScripts
 	============================================= -->
-
+	<script src="{% static 'js/comments.js' %}"></script>
 	<script src="{% static 'js/jquery.js' %}"></script>
 	<script src="{% static 'js/plugins.js' %}"></script>
 
