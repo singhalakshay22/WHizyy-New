@@ -198,7 +198,7 @@
 }
 
 .owl-carousel .owl-stage { padding: 0; }
-.owl-item { padding: 20px 15px; }
+.owl-item { /*padding: 20px 15px;*/ }
 .owl-carousel .owl-nav [class*=owl-] { opacity: 1; }
 .owl-carousel .owl-nav .owl-prev { left: -3px !important; }
 .owl-carousel .owl-nav .owl-next { right: -3px !important; }
